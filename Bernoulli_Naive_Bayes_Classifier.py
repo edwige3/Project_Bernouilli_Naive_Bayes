@@ -95,4 +95,19 @@ class Bernoulli_Naive_Bayes_Classifier:
 
     
     def confusion_matrix(self, DataFrame_to_test):
-        pass
+        C_true = DataFrame_to_test.iloc[:, -1].values
+        C_pred = self.predict(DataFrame_to_test, inplace = False)
+        TP, FN, FP, TN = 0, 0, 0, 0
+        num = len(C_pred)
+        for i in range(num):
+            if C_pred[i] == "positive":
+                if C_true[i] == "positive":
+                    TP += 1
+                else:
+                    FP += 1
+            else:
+                if C_true[i] == "positive":
+                    FN += 1
+                else:
+                    TN += 1
+        return {"TP":TP, "FN":FN, "FP":FP, "TN":TN}
