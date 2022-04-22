@@ -41,3 +41,18 @@ def get_unique_words( data_frame ) :
         for word in unique_word_doc:
             unique_word.add(word)
     return list(unique_word)
+
+  
+def one_hot_encoding(text_data_frame, list_of_all_words):
+    """
+    This function take imput a text dataframe and return a binary trasformation 
+    """
+    mat = []
+    for doc in text_data_frame.review:
+        doc_vec = []
+        for word in list_of_all_words:
+            value = 1 if word in doc else 0
+            doc_vec.append(value)
+        mat.append(doc_vec)
+    df = pd.DataFrame(data = mat, columns = list_of_all_words)
+    return df
