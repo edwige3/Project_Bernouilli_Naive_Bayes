@@ -22,3 +22,22 @@ def clean_text(text):
     text = " ".join([word for word in text if word not in stopwords])
     return text
 
+def clean_data(df):
+    """
+    This function will remove all non alphabetical character in the dataframe
+    """
+    df_copy = df.copy() 
+    df_copy.iloc[:,0] = df.iloc[:,0].apply(clean_text) 
+    return df_copy
+
+def get_unique_words( data_frame ) :
+    """
+    This function will return all words from the input dataframe
+    """
+    unique_word = set()
+    for doc in data_frame.iloc[:,0]:
+        doc_split = doc.split()
+        unique_word_doc = set(doc_split)
+        for word in unique_word_doc:
+            unique_word.add(word)
+    return list(unique_word)
